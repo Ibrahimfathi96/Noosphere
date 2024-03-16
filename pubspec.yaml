@@ -1,0 +1,27 @@
+name: noosphere
+description: "A new Flutter with supabase, Bloc, Hive, GetIt, applying Clean
+  Architecture in Blogs Application."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.2 <4.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.4
+  flutter_screenutil: ^5.9.0
+  fpdart: ^1.1.0
+  get_it: ^7.6.7
+  supabase_flutter: ^2.3.4
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
