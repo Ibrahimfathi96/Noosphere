@@ -8,12 +8,12 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final UserSignUp _userSignUp;
-  final UserSignIn _userSignIn;
+  final UserSignUpUseCase _userSignUp;
+  final UserSignInUseCase _userSignIn;
 
   AuthBloc({
-    required UserSignUp userSignUp,
-    required UserSignIn userSignIn,
+    required UserSignUpUseCase userSignUp,
+    required UserSignInUseCase userSignIn,
   })  : _userSignUp = userSignUp,
         _userSignIn = userSignIn,
         super(AuthInitial()) {

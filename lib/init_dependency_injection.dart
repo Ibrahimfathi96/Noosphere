@@ -32,13 +32,13 @@ void _initAuth() {
   );
 
   serviceLocator.registerFactory(
-    () => UserSignUp(
+    () => UserSignUpUseCase(
       serviceLocator(),
     ),
   );
 
   serviceLocator.registerFactory(
-    () => UserSignIn(
+    () => UserSignInUseCase(
       serviceLocator(),
     ),
   );
