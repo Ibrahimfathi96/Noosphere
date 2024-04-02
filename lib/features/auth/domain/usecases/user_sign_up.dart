@@ -4,11 +4,11 @@ import 'package:noosphere/core/usecase/usecase.dart';
 import 'package:noosphere/features/auth/domain/entities/user.dart';
 import 'package:noosphere/features/auth/domain/repository/auth_repository.dart';
 
-class UserSignUpUseCase implements UseCase<User, UserSignUpParams> {
+class UserSignUpUseCase implements UseCase<UserEntity, UserSignUpParams> {
   final AuthRepository authRepository;
   const UserSignUpUseCase(this.authRepository);
   @override
-  Future<Either<Failure, User>> call(UserSignUpParams params) async {
+  Future<Either<Failure, UserEntity>> call(UserSignUpParams params) async {
     return await authRepository.signUpWithEmailAndPassword(
       email: params.email,
       password: params.password,

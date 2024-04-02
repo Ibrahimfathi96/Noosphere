@@ -1,6 +1,6 @@
 import 'package:noosphere/features/auth/domain/entities/user.dart';
 
-class UserModel extends User {
+class UserModel extends UserEntity {
   UserModel({
     required super.id,
     required super.email,
