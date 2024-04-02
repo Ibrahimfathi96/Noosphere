@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noosphere/core/utils/spacing.dart';
+import 'package:noosphere/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:noosphere/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:noosphere/features/auth/presentation/widgets/auth_text_field.dart';
 
@@ -42,7 +44,16 @@ class _LoginFormState extends State<LoginForm> {
           vGap(20),
           AuthGradientButton(
             btnText: 'Sign In',
-            onPressed: () {},
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                context.read<AuthBloc>().add(
+                      AuthSignIn(
+                        email: _emailController.text.trim(),
+                        password: _passwordController.text.trim(),
+                      ),
+                    );
+              }
+            },
           ),
           vGap(20),
         ],

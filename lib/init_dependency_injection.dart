@@ -3,6 +3,7 @@ import 'package:noosphere/core/secrets/app_secrets.dart';
 import 'package:noosphere/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:noosphere/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:noosphere/features/auth/domain/repository/auth_repository.dart';
+import 'package:noosphere/features/auth/domain/usecases/user_sign_in.dart';
 import 'package:noosphere/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:noosphere/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -36,9 +37,16 @@ void _initAuth() {
     ),
   );
 
+  serviceLocator.registerFactory(
+    () => UserSignIn(
+      serviceLocator(),
+    ),
+  );
+
   serviceLocator.registerLazySingleton(
     () => AuthBloc(
       userSignUp: serviceLocator(),
+      userSignIn: serviceLocator(),
     ),
   );
 }

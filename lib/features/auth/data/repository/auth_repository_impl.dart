@@ -4,6 +4,7 @@ import 'package:noosphere/core/error/failures.dart';
 import 'package:noosphere/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:noosphere/features/auth/domain/entities/user.dart';
 import 'package:noosphere/features/auth/domain/repository/auth_repository.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
@@ -12,9 +13,13 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, User>> signInWithEmailAndPassword({
     required String email,
     required String password,
-  }) {
-    // TODO: implement signInWithEmailAndPassword
-    throw UnimplementedError();
+  }) async {
+    return _getUser(
+      () async => await authRemoteDataSource.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      ),
+    );
   }
 
   @override
@@ -23,14 +28,24 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    try {
-      final user = await authRemoteDataSource.signUpWithEmailAndPassword(
+    return _getUser(
+      () async => await authRemoteDataSource.signUpWithEmailAndPassword(
         name: name,
         email: email,
         password: password,
-      );
+      ),
+    );
+  }
+
+  Future<Either<Failure, User>> _getUser(
+    Future<User> Function() fn,
+  ) async {
+    try {
+      final user = await fn();
 
       return right(user);
+    } on sb.AuthException catch (e) {
+      return left(Failure(e.message));
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }
